@@ -60,6 +60,7 @@ export class ProductsService {
       product = await this.productRepository.findOneBy({ id: term });
     } else {
       const queryBuilder = this.productRepository.createQueryBuilder(); 
+      // query builder proyeje de ataques SQL
       product = await queryBuilder
         .where('UPPER(title) =:title or slug =:slug', {
           title: term.toUpperCase(),
