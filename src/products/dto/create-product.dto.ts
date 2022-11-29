@@ -33,7 +33,7 @@ export class CreateProductDto {
 
     @IsIn(['men', 'women', 'kid', 'unisex'])
     gender: string;
-
+    //Se coloca los array opcionales
     @IsString({ each: true })
     @IsArray()
     @IsOptional()
