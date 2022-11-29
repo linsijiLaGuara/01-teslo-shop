@@ -76,7 +76,7 @@ export class ProductsService {
   }
 
   async update( id: string, updateProductDto: UpdateProductDto ) {
-
+// Carga todas las propiedades que estan en updateProducDTo
     const product = await this.productRepository.preload({
       id: id,
       ...updateProductDto
