@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, BadGatewayException, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, UploadedFile, UseInterceptors, BadGatewayException, BadRequestException, Param, Patch, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
@@ -9,7 +9,14 @@ import { fileFilter, fileNamer } from './helpers';
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
+   @Get('product/:imageName')
+   findProductImage(
 
+    @Param('imageName')imageName: string
+   ){ const path = this.filesService.getStatictProducImage(imageName)
+ return path;
+
+   }
 
   @Post('product')
   @UseInterceptors(FileInterceptor('file',{
@@ -25,8 +32,7 @@ export class FilesController {
 if (!file){
   throw new BadRequestException('Erro en la imagen')
 }
-
-    return {
-      fiileName: file.originalname};
+const secureUrl = `${file.filename}`;
+    return {secureUrl};
   }
 }
