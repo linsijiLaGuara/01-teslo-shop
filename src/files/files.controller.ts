@@ -15,10 +15,13 @@ export class FilesController {
     @Res()res: Response,
     @Param('imageName')imageName: string
    ){ const path = this.filesService.getStatictProducImage(imageName)
-      res.status(403).json({
-        ok: false,
-        path : path
-      })
+      // res.status(403).json({
+      //   ok: false,
+      //   path : path
+      // })
+
+      res.sendFile(path);
+
    }
 
   @Post('product')
