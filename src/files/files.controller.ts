@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
 import { fileFilter } from './helpers/filesFilter.helpers';
 
@@ -11,7 +12,10 @@ export class FilesController {
 
   @Post('product')
   @UseInterceptors(FileInterceptor('file',{
-    fileFilter: fileFilter 
+    fileFilter: fileFilter,
+    storage: diskStorage ({
+      destination : './static/uploads'
+    })
   }))
   uploasdProductImage(
     @UploadedFile() file: Express.Multer.File){
