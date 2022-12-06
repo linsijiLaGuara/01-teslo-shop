@@ -7,9 +7,9 @@ return callback(new Error('File is empty'), false);
 
 
 const fileExptension = file.mimetype.split('/')[1]
-const validEtensions = ['jpg', 'jpeg', 'png', 'gif']
+const validExtensions = ['jpg', 'jpeg', 'png', 'gif']
 
-if (validEtensions.includes(fileExptension)){
+if (validExtensions.includes(fileExptension)){
     return callback(null, true)
     
 }
