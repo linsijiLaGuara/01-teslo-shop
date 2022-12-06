@@ -1,5 +1,6 @@
 import { Controller, Get, Post, UploadedFile, UseInterceptors, BadGatewayException, BadRequestException, Param, Patch, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
 import { fileFilter, fileNamer } from './helpers';
@@ -11,11 +12,13 @@ export class FilesController {
 
    @Get('product/:imageName')
    findProductImage(
-
+    @Res()res: Response,
     @Param('imageName')imageName: string
    ){ const path = this.filesService.getStatictProducImage(imageName)
- return path;
-
+      res.status(403).json({
+        ok: false,
+        path : path
+      })
    }
 
   @Post('product')
