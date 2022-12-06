@@ -2,6 +2,16 @@
 
 export const fileFilter =(req: Express.Request, file: Express.Multer.File, callback: Function)=>{
 
-console.log({file})
-callback(null, true)
+if (!file)
+return callback(new Error('File is empty'), false);
+
+
+const fileExptension = file.mimetype.split('/')[1]
+const validEtensions = ['jpg', 'jpeg', 'png', 'gif']
+
+if (validEtensions.includes(fileExptension)){
+    return callback(null, true)
+    
+}
+callback(null, false)
 }
