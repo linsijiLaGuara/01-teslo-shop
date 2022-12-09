@@ -38,7 +38,7 @@ export class FilesController {
 if (!file){
   throw new BadRequestException('Erro en la imagen')
 }
-const secureUrl = `${file.filename}`;
+const secureUrl = `http://localhost:3000/api/files/product/c285cfc0-7dd2-422e-b0f2-98322e012505.png`;
     return {secureUrl};
   }
 }
