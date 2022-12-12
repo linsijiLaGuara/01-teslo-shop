@@ -1,4 +1,5 @@
 import { Controller, Get, Post, UploadedFile, UseInterceptors, BadGatewayException, BadRequestException, Param, Patch, Res } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { diskStorage } from 'multer';
@@ -8,7 +9,9 @@ import { fileFilter, fileNamer } from './helpers';
 
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: FilesService) {}
+  constructor(private readonly filesService: FilesService,
+              private readonly configService: ConfigService,
+    ) {}
 
    @Get('product/:imageName')
    findProductImage(
@@ -38,7 +41,7 @@ export class FilesController {
 if (!file){
   throw new BadRequestException('Erro en la imagen')
 }
-const secureUrl = `http://localhost:3000/api/files/product/c285cfc0-7dd2-422e-b0f2-98322e012505.png`;
+const secureUrl = `${this.configService.get('HOST_API')}/files/product/${file.filename}`;
     return {secureUrl};
   }
 }
